@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+ <!-- dao의 Mapper 경로 -->
+ <mapper namespace="com.quiz.lesson02.dao.StoreMapper">
+ 	
+ 	<!--  resultType에는 model/테이블명 클래스 -->
+ 	<select id="selectStoreList" resultType="com.quiz.lesson02.model.Store"> 
+ 		SELECT
+ 			*
+ 		FROM
+ 			`store`
+ 	</select>
+ 
+ </mapper>
