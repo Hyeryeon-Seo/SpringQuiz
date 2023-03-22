@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+ <mapper namespace="com.quiz.lesson03.dao.RealEstateMapper">
+ 	<!-- 아래 select id 에는 해당 맵퍼해서 쓸 메소드명 쓰기/ paramter 하나면 사실 type안써도됨 / resultType은 객체주소 -->
+ 	
+ 	<!-- 1번 -->
+ 	<select id="selectRealEstateById" parameterType="int" resultType="com.quiz.lesson03.model.RealEstate">
+ 		SELECT
+	 		`id`
+			, `realtorId`
+			, `address`
+			, `area`
+			, `type`
+			, `price`
+			, `rentPrice`
+			, `createdAt`
+			, `updatedAt`
+		FROM 
+			`real_estate`
+		WHERE
+			`id` = #{id}   <!-- ``는 db칼럼명 , {} 안에는 써준 파라미터이름과 같게. -->
+ 	</select>
+
+
+	<!-- 2번 --> 
+  	<select id="selectRealEstateByRentPrice" parameterType="Integer" resultType="com.quiz.lesson03.model.RealEstate">
+ 		SELECT
+	 		`id`
+			, `realtorId`
+			, `address`
+			, `area`
+			, `type`
+			, `price`
+			, `rentPrice`
+			, `createdAt`
+			, `updatedAt`
+		FROM 
+			`real_estate`
+		WHERE
+			 <![CDATA[
+       		 `rentPrice` < #{rent_price}
+        	]]>
+ 			<!--  부등호 인식하게 하려면 위에처럼 써야 / #파라미터값 보다 적은 rentPrice 가진 데이터 출력  -->
+ 	</select>
+
+
+	<!-- 3번 --> 
+   	<select id="selectRealEstateByAreaPrice" parameterType="int" resultType="com.quiz.lesson03.model.RealEstate">
+ 		SELECT
+	 		`id`
+			, `realtorId`
+			, `address`
+			, `area`
+			, `type`
+			, `price`
+			, `rentPrice`
+			, `createdAt`
+			, `updatedAt`
+		FROM 
+			`real_estate`
+		WHERE
+			 <![CDATA[
+       		 (`area` >= #{area}) and
+       		 (`price` <= #{price})
+        	]]>
+        <!-- where 에 조건 여러개일때 and나 or로 연결 - 3번문제경우 두 조건 다 부합해야 하니 and -->
+        ORDER BY `createdAt` DESC
+ 	</select>
+ 
+ 
+ </mapper>
