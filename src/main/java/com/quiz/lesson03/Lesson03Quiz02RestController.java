@@ -34,10 +34,12 @@ public class Lesson03Quiz02RestController {
 	
 	// 파라미터 하나씩 쪼개서 넘기기 / 근데 realtor_id 파라미터 주소창에서 입력 받기 (메소드 파라미터 받는 ()괄호 안에 넣기
 	// 파라미터이름은 @RequestParam뒤에 붙는"realtor_id" 이며 db칼럼은 (int) realtorId 다름에 주의!)
-	// http://localhost:8080/lesson03/quiz02/2?realtor_id=
+	// http://localhost:8080/lesson03/quiz02/2?realtor_id=5
 	@RequestMapping("/2")
-	public String quiz02_2(@RequestParam("realtor_id") int realtorId) {
+	public String quiz02_2(
+			@RequestParam("realtor_id") int realtorId ) { // 뒤는 자바 변수
 		
+		// rowCount: mybatis가 넘겨주는 성공한 행의 갯수
 		int rowCount = realEstateBO.addRealEstateAsField(realtorId, "썅떼빌리버 오피스텔 814호", 45, "월세", 100000, 120);
 		return "입력 성공 : " + rowCount;
 		// return realEstateBO.getRealEstateListByRealtorId(realtorId);

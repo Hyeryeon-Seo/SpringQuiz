@@ -46,19 +46,30 @@ public class RealEstateBO {
 	// add(추가)
 	public int addRealEstateAsField(  
 			// 한번 @Param("type") 이런식으로도 써줌 ㅠㅠ 위에보니 안써도 되는거같고 걍 realtorId 에서만 @Param도 붙여봤는데 상관없는듯
-			// 변수명 여기 레이어에서만 통하므로 아무렇게 써보자
+			// 변수명 여기 레이어에서만 통하므로 아무렇게 써보자 (하지만 웬만하면 컬럼명과 맞춰주는게 좋음 실제론)
 			int realtorId2,
 			String address6, int area3, String type2, 
-			int pr4ice, int rent1Price) {
+			int pr4ice, Integer rent1Price) { // rentPrice 는 int도 되지만, 사실 null이 가능하므로 model대로 Integer로 쓰자
 		
 		return realEstateMapper.insertRealEstateAsField(realtorId2, address6, area3, type2, pr4ice, rent1Price);
 	}
 	
-	// quiz02_2 중 realtorId 파라미터 받기 (get-)
+	// X - quiz02_2 중 realtorId 파라미터 받기 (get-) >> X
 	//public int getRealEstateListByRealtorId(int realtorId) {
 	//	return realEstateMapper.selectRealEstateByRealtorId(realtorId);
 	// }
 
+	
+	// quiz03 - UPDATE
+	// input : id, type, price     output : 성공된 행 개수 int
+	public int updateRealEstateById(int id, String type, int price) {
+		return realEstateMapper.updateRealEstateById(id, type, price);
+	}
+	
+	// quiz04 delete
+	public int deleteRealEstateById(int id) {
+		return realEstateMapper.deleteRealEstateById(id) ;
+	}
 	
 	
 }

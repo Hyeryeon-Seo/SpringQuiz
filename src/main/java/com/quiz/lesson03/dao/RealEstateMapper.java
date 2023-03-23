@@ -33,8 +33,18 @@ public interface RealEstateMapper {
 			@Param("area") int area4,
 			@Param("type") String type5,
 			@Param("price") int pri3ce,
-			@Param("rentPrice") int rentPrice2);
+			@Param("rentPrice") Integer rentPrice2);
+	
+	
+	// quiz03 - UPDATE
+	public int updateRealEstateById(
+			// + 단어 더블클릭하면 복사됨
+			@Param("id") int id,
+			@Param("type") String type,
+			@Param("price") int price);
 	
 
+	// quiz04 -delete
+	public int deleteRealEstateById(@Param("id") int id); // @Param생략가능
 	
 }
