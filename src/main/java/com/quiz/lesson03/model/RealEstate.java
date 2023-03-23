@@ -9,7 +9,7 @@ public class RealEstate {
 	private int area;
 	private String type; // 타입 char 주의! - t: String으로함
 	private int price;
-	private Integer rentPrice; // int면 안됨 null 허용가능!
+	private Integer rentPrice; // int면 안됨 null 허용가능! 없으면 null로 채워진 상태
 	private Date createdAt;
 	private Date updatedAt;
 	

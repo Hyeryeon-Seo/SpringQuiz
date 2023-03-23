@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
  
  <mapper namespace="com.quiz.lesson03.dao.RealEstateMapper">
- 	<!-- 아래 select id 에는 해당 맵퍼해서 쓸 메소드명 쓰기/ paramter 하나면 사실 type안써도됨 / resultType은 객체주소 -->
+ 	<!-- 아래 select id 에는 해당 맵퍼해서 쓸 메소드명 쓰기/ paramter 하나면 사실 type안써도됨 - 지금은 안써도 알아서 해주는 점도 있다/ resultType은 객체주소 -->
  	
  	<!-- 1번 -->
  	<select id="selectRealEstateById" parameterType="int" resultType="com.quiz.lesson03.model.RealEstate">
@@ -14,7 +14,7 @@
 			, `area`
 			, `type`
 			, `price`
-			, `rentPrice`
+			, `rentPrice` 
 			, `createdAt`
 			, `updatedAt`
 		FROM 
@@ -24,8 +24,8 @@
  	</select>
 
 
-	<!-- 2번 --> 
-  	<select id="selectRealEstateByRentPrice" parameterType="Integer" resultType="com.quiz.lesson03.model.RealEstate">
+	<!-- 2번 , 위 1번과 똑같은 id해놓을 시 에러--> 
+  	<select id="selectRealEstateListByRentPrice" parameterType="int" resultType="com.quiz.lesson03.model.RealEstate">
  		SELECT
 	 		`id`
 			, `realtorId`
@@ -46,8 +46,11 @@
  	</select>
 
 
-	<!-- 3번 --> 
-   	<select id="selectRealEstateByAreaPrice" parameterType="int" resultType="com.quiz.lesson03.model.RealEstate">
+	<!-- 3번 : "매매"!!(빼먹음..) 매물 중 - 넓이(area) - 매물의 넓이가 전달 받은 넓이 이상인 것
+	가격(price) - 매물의 매매금이 전달받은 매매금 보다 이하인 것
+	등록일을 기준으로 내림 차순으로 정렬하세요. --> 
+	<!-- 복수 파라미터이므로, parameterType="map"이다 (int할때에도 알아서 맞춰져서 작동은 했지만) -->
+   	<select id="selectRealEstateListByAreaPrice" parameterType="map" resultType="com.quiz.lesson03.model.RealEstate">
  		SELECT
 	 		`id`
 			, `realtorId`
@@ -62,12 +65,75 @@
 			`real_estate`
 		WHERE
 			 <![CDATA[
-       		 (`area` >= #{area}) and
-       		 (`price` <= #{price})
+			 (`type` = '매매') 
+			 AND (`area` >= #{area}) 
+       		 AND (`price` <= #{price})
         	]]>
-        <!-- where 에 조건 여러개일때 and나 or로 연결 - 3번문제경우 두 조건 다 부합해야 하니 and -->
+        <!-- where 에 조건 여러개일때 and나 or로 연결 ()괄호는 넣든안넣든 상관없는듯 
+        - 3번문제경우 두 조건 다 부합해야 하니 AND / 참고로 매매 조건도 잘 넣자! ``와 '' 구분 -->
         ORDER BY `createdAt` DESC
  	</select>
- 
+ 	
+ 	<!-- quiz02_1 -->
+ 	<insert id="insertRealEstate" parameterType="com.quiz.lesson03.model.RealEstate">
+ 		INSERT INTO `real_estate`
+ 		(
+ 			`realtorId`
+			, `address`
+			, `area`
+			, `type`
+			, `price`
+			, `rentPrice` <!-- 월세 rentPrice안넣을거라고 해도 써야 -->
+			, `createdAt`
+			, `updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{realtorId} 
+ 			, #{address}
+ 			, #{area}
+ 			, #{type}
+ 			, #{price}
+ 			, #{rentPrice}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ 	
+ 	
+ 	
+ 	<!--  quiz02_2 : select  -->
+ <!--  <select id="selectRealEstateByRealtorId" parameterType="int" resultType="com.quiz.lesson03.model.RealEstate">
+		SELECT
+		FROM `real_estate`
+ 	</select> -->	
+ 	
+ 	
+ 	<!--  quiz02_2 : map타입 주의 -->
+ 	<insert id="insertRealEstateAsField" parameterType="map">
+ 			INSERT INTO `real_estate`
+ 		(
+ 			`realtorId`
+			, `address`
+			, `area`
+			, `type`
+			, `price`
+			, `rentPrice` 
+			, `createdAt`
+			, `updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{realtor_id}  <!-- db의 칼럼field명말고 받는 파라미터 이름!! ㅠㅠ (@Param에서 쓰는)
+ 			앞 dao의 Mapper인페에서 쓴 @Param""이름과 맞춰줘야 한다-->
+ 			, #{address7}
+ 			, #{area}
+ 			, #{type}
+ 			, #{price}
+ 			, #{rentPrice}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
  
  </mapper>
