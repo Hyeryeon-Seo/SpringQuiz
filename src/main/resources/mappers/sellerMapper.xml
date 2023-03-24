@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+ <mapper namespace="com.quiz.lesson04.dao.SellerMapper">
+ 	<insert id="insertSeller" parameterType="map">
+ 		INSERT INTO `seller`
+ 		(
+ 			`nickname`
+ 			, `profileImage`
+ 			, `temperature`
+ 			, `createdAt`
+			, `updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{nickname}
+ 			, #{profileImage}
+ 			, #{temperature}
+ 			, NOW()
+	 		, NOW()
+ 		)
+ 	</insert>
+ 	
+ 	<!-- 2. select - parameter아니고 resultType주의 -->
+ 	<select id="selectLatestSeller" resultType="com.quiz.lesson04.model.Seller">
+ 		SELECT
+ 			`id`
+ 			, `nickname`
+ 			, `profileImage`
+ 			, `temperature`
+ 			, `createdAt`
+			, `updatedAt`
+		FROM
+			`seller`
+		ORDER BY `id` DESC
+		LIMIT 1	
+ 	</select>
+ 	
+ 	<!-- 3. select - id parameter로 받으므로 파라미터타입int설정 -->
+ 	<select id="selectSellerById" parameterType="Integer" resultType="com.quiz.lesson04.model.Seller">
+ 		SELECT
+ 			`id`
+ 			, `nickname`
+ 			, `profileImage`
+ 			, `temperature`
+ 			, `createdAt`
+			, `updatedAt`
+		FROM
+			`seller`
+		WHERE
+			`id` = #{id} <!-- id파라미터해당 조건 써주기 -->
+ 	</select>
+ 
+ 
+ </mapper>
+ 
+ 
