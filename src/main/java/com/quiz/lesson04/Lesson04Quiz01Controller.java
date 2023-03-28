@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.quiz.lesson04.bo.SellerBO;
 import com.quiz.lesson04.model.Seller;
 
+// 참고로 맵핑주소는 한 프로젝트내에서 중복되면 안됨
 @RequestMapping("/lesson04/quiz01")
 @Controller
 public class Lesson04Quiz01Controller {
@@ -49,19 +50,21 @@ public class Lesson04Quiz01Controller {
 	// http://localhost:8080/lesson04/quiz01/seller_info?id=
 	@GetMapping("/seller_info") // get방식으로 RequestMapping해서 "/seller_info"주소 입력 시 seller_info.jsp로 이동(리턴)
 	public String getSeller(Model model,
-			@RequestParam(value="id", required=false) Integer id) { 
+			@RequestParam(value="id", required=false) Integer id) { // t- 여기서 integer로 하심
 			// id파라미터는 비필수, id없을 시 받아온(import) model(데이터가져와야할시사용)로 seller받아서
 		// +근데 혹시 id int를 Integer로 해야하나? > 그렇게바꾸니(model/Seller상 변수타입까지 바꾸진않았으나) 뜸
 		
 		// 3. 파라미터id 해당 seller정보만 출력 (이므로 List는 아님)
-		if(id != null) {
-			Seller seller = sellerBO.getSellerById(id);
-			model.addAttribute("seller", seller);
+		// 원래 if문은 bo에서 하는 게 좋음
+		// if문 밖에 seller 정의
+		Seller seller = null;
+		if(id != null) { // t 는 ==null조건 먼저 씀
+			seller = sellerBO.getSellerById(id);
 		} else { // 2. 최신판매자정보- BO의 latestSeller메소드 실행
-			Seller seller = sellerBO.getLatestSeller();
-			model.addAttribute("seller", seller);
+			seller = sellerBO.getLatestSeller();
 		}
 		
+		model.addAttribute("seller", seller); // 얜 if문 밖에 빼면 됨
 		// 정보페이지 출력
 		return "lesson04/seller_info"; // seller_info.jsp
 		

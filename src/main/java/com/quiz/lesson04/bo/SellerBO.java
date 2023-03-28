@@ -22,7 +22,7 @@ public class SellerBO {
 	}
 	
 	// 3. id파라미터 받아서 해당 seller 출력
-	public Seller getSellerById(Integer id) {
+	public Seller getSellerById(Integer id) { // t: int id
 		return sellerMapper.selectSellerById(id);
 	}
 	

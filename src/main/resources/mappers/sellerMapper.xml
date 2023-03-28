@@ -37,7 +37,7 @@
 		LIMIT 1	
  	</select>
  	
- 	<!-- 3. select - id parameter로 받으므로 파라미터타입int설정 -->
+ 	<!-- 3. select - id parameter로 받으므로 파라미터타입int설정 (t는 int) -->
  	<select id="selectSellerById" parameterType="Integer" resultType="com.quiz.lesson04.model.Seller">
  		SELECT
  			`id`

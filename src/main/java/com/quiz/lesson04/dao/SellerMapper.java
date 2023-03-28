@@ -18,6 +18,6 @@ public interface SellerMapper {
 	public Seller selectLatestSeller();
 
 	// 3. id파라미터 받아서 해당 seller정보만 출력
-	public Seller selectSellerById(@Param("id") Integer id);
+	public Seller selectSellerById(@Param("id") Integer id); // t- 그냥 int id 만 씀
 	
 }
