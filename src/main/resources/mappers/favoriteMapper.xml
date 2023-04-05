@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+ <mapper namespace="com.quiz.lesson06.dao.FavoriteMapper">
+ 	<select id="selectFavoriteList" resultType="com.quiz.lesson06.model.Favorite">
+ 		SELECT
+ 			`id`
+	 		,`name`
+			,`url`
+	 		,`createdAt`
+	 		,`updatedAt`
+ 		FROM
+ 			`favorite`
+ 	</select>
+ 
+ 	<insert id="insertFavorite" parameterType="com.quiz.lesson06.model.Favorite">
+ 		INSERT INTO `favorite`
+ 		(   <!-- id는 뺴야하는 거 주의! 따로 insert안하므로 -->
+	 		`name`
+			,`url`
+	 		,`createdAt`
+	 		,`updatedAt`
+	 	)
+	 	VALUES
+	 	(
+	 		#{name}
+			, #{url}
+	 		, NOW()
+	 		, NOW()
+	 	)
+ 	</insert>
+ 
+ 
+ 	<!--연습문제 2번 - 주소 중복 체크 -->
+ 	<select id="existFavoriteByUrl" parameterType="string" resultType="boolean">
+ 		SELECT
+ 			COUNT(1)
+ 		FROM
+ 			`favorite`
+ 		WHERE
+ 			`url` = #{url}
+ 	</select>
+ 
+ 
+ 
+ 
+ 
+ </mapper>
