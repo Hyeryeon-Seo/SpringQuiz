@@ -29,21 +29,21 @@ public class Lesson04Quiz02Controller {
 	@PostMapping("/add_realtor")
 	public String addRealtor(
 			// 객체 받아오기 - 없으니 새로 model패키지 안에 만들기
-			@ModelAttribute Realtor realtor,
+			@ModelAttribute Realtor realtor, // realtor라는 ModelAttribute통해 한번에 받아옴 
 			Model model) {
 			
 		// DB insert
 		realtorBO.addRealtor(realtor);
 		
-		// DB select - 추가한 공인중개사 정보 가져오기 
+		// DB select - id로 / 추가한 공인중개사 정보 가져오기 
 		// 새로운 객체 만들기 (덮어써도 되나)
 		Realtor latestRealtor = realtorBO.getRealtorById(realtor.getId()); // Realtor 클래스의 getter
 		
 		// Model에 데이터 담기
-		model.addAttribute("result", latestRealtor);
+		model.addAttribute("realtor", latestRealtor);
 		model.addAttribute("title", "공인중개사 정보");
 		
-		// 결과 - 추가된 공인중개사 정보 보여주는 jsp
+		// 결과 view 이동- 추가된 공인중개사 정보 보여주는 jsp
 		return "lesson04/afterAddRealtor";
 		
 	}

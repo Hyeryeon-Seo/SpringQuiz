@@ -14,25 +14,25 @@
 		<h1>${title}</h1>
 	
 		<table class="table">
-			<tr>
+			<tr> 
 				<th>ID</th>
-				<td>${result.id}</td>
+				<td>${realtor.id}</td>
 			</tr>
 			<tr>
 				<th>상호명</th>
-				<td>${result.office}</td>
+				<td>${realtor.office}</td>
 			</tr>			
 			<tr>
 				<th>전화 번호</th>
-				<td>${result.phoneNumber}</td>
+				<td>${realtor.phoneNumber}</td>
 			</tr>		
 			<tr>
 				<th>주소</th>
-				<td>${result.address}</td>
+				<td>${realtor.address}</td>
 			</tr>		
 			<tr>
 				<th>등급</th>
-				<td>${result.grade}</td>
+				<td>${realtor.grade}</td>
 			</tr>		
 		</table>
 	
