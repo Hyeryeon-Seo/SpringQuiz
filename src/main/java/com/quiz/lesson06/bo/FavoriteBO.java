@@ -25,12 +25,23 @@ public class FavoriteBO {
 		return favoriteMapper.insertFavorite(name, url);
 	}
 	
-	// 주소 중복 체크
+	// 주소 중복 체크1
 	// input:url  output:boolean
 	public boolean existFavoriteByUrl(String url) {
 		return favoriteMapper.existFavoriteByUrl(url);
 	}
 	
+	// 주소 중복 체크2
+	// input: url     output: 1개행 또는 0개행 Favorite
+	public Favorite getFavoriteByUrl(String url) {
+		// Faovrite 객체 하나 리턴 (list아님)
+		return favoriteMapper.selectFavoriteByUrl(url);
+	}
+	
+	// delete
+	public int deleteFavoriteById(int id) {
+		return favoriteMapper.deleteFavoriteById(id);
+	}
 	
 	
 	

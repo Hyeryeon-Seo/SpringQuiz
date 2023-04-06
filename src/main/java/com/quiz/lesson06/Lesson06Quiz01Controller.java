@@ -88,18 +88,56 @@ public class Lesson06Quiz01Controller {
 	}
 	
 	
-	// 주소 중복 체크
+	// 중복 URL 체크 - AJAX 통신
 	// AJAX의 요청
+	@PostMapping("/is_duplication_url")
 	@ResponseBody
-	@GetMapping("/is_duplication")
-	public Map<String, Boolean> isDuplication(
-			@RequestParam("url") String url) { // addFavorite.jsp에서 ajax방식으로 요청된- 주소(입력된) 넘겨받아서
+	public Map<String, Boolean> isDuplicationUrl(
+			@RequestParam("url") String url) { // addFavorite.jsp에서 ajax방식으로 요청된- data의 "url"주소(입력된) 넘겨받아서
 		
 		Map<String, Boolean> result = new HashMap<>(); // result 맵 생성
-		result.put("isDuplication", favoriteBO.existFavoriteByUrl(url)); // 이 맵에 
+
+		// select (중복체크 2번째방식)
+		// exist메소드만들어서 할 수도 있지만, 
+		// 원래 이게 정석 : select 해당 주소 한 행 중복확인
+		Favorite favorite = favoriteBO.getFavoriteByUrl(url);
+		if (favorite != null) {
+			result.put("isDuplication", true);
+		} else {
+			result.put("isDuplication", false);
+		}
+		
+		// 아래는 exist방식 중복체크 (1번)
+		// result.put("isDuplication", favoriteBO.existFavoriteByUrl(url)); // 이 맵에 
 		return result;
 	} 
 	
+	
+	// id로 삭제 API(중간매개체)
+	// AJAX 요청
+	// delete
+	// Get방식도 가능한데 이 경우 브라우저로 들어갈 수 있어 위험 - ?id=13 등으로 주소 입력해서 타인이 임의로 삭제할 수 있어서  delete_favorite?id=13   X
+	// post방식을 통하면 무조건 ajax을 통해야만 삭제된다
+	@PostMapping("/delete_favorite")  //검증해보고싶으면 get으로 바꿔서 주소입력해서 테스트해보기
+	@ResponseBody  // ajax요청이니까 뺴먹지 말자 ㅠ 에러남
+	public Map<String, Object> deleteFavorite(
+			@RequestParam("id") int id) {
+			
+			// delete
+			int rowCount = favoriteBO.deleteFavoriteById(id);
+					
+			Map<String, Object> result = new HashMap<>();
+			
+			if (rowCount > 0) {
+				result.put("code", 1); // 1: 성공
+				result.put("result", "성공");
+			} else {
+				result.put("code", 500); // 500: 에러
+				result.put("result", "삭제 하는데 실패했습니다.");
+			}
+			
+			return result;
+	}
 	
 	
 	

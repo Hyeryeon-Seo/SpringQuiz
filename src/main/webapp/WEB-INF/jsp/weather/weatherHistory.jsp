@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> <!-- fmt필요: fmt:formatDate-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,7 +91,7 @@
 					</tbody>
 				</table>
 			</section>
-		</div>
+		</div>   <%--?? --%> 
 		<footer class="d-flex align-items-center">
 			<div class="footer-logo ml-4">
 				<img class="foot-logo-image"

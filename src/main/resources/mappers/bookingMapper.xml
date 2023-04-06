@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="com.quiz.lesson06.dao.BookingMapper">
+ 	<select id="selectBookingList" resultType="com.quiz.lesson06.model.Booking">
+ 		SELECT
+ 			`id`
+			,`name`
+			,`headcount`
+			,`day`
+			,`date`
+			,`phoneNumber`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`booking`
+ 	</select>
+ 	
+ 	 <insert id="insertBooking" parameterType="map">
+ 		INSERT INTO `booking`
+ 		(   <!-- id는 뺴야하는 거 주의! 따로 insert안하므로 -->
+ 		<!-- 아래순서는 파라미터와 달라도 됨 _  아래쿼리문상에서만 순서 동일하게
+ 		status도 insert해줄것인데 쿼리에서 '대기중'으로 넣어주기 -->
+	 		`name`
+			,`headcount`
+			,`day`
+			,`date`
+			,`phoneNumber`
+			,`status`
+			,`createdAt`
+			,`updatedAt`
+	 	)
+	 	VALUES
+	 	(
+	 		#{name}
+			,#{headcount}
+			,#{day}
+			,#{date}
+			,#{phoneNumber}
+			, '대기중'   <!-- 작은 따옴표 -->
+	 		, NOW()
+	 		, NOW()
+	 	)
+ 	</insert>
+ 	
+ 	<delete id="deleteBookingById" parameterType="int">
+		DELETE
+		FROM	
+			`booking`
+		WHERE
+			`id` = #{id}
+	</delete>
+ 	
+ 	<select id="selectBookingByNamePhoneNumber" resultType="com.quiz.lesson06.model.Booking">
+ 			SELECT
+ 			`id`
+			,`name`
+			,`headcount`
+			,`day`
+			,`date`
+			,`phoneNumber`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`booking`
+ 		WHERE
+ 			id = #{id}
+ 			AND phoneNumber = #{phoneNumber}
+ 	</select>
+ </mapper>

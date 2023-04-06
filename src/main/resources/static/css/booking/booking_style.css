@@ -1,0 +1,48 @@
+@charset "UTF-8";
+/* 통나무팬션 마크업 */
+
+#wrap {width:1200px;} /*처음에 wrap잡았으면 없애도 되는 것? 어쩌피 내용들어가면 오히려 제한될 수 */ 
+
+nav {height:45px; background-color:#E3871F;}
+/* 어쩐지 이상하게 nav 잡히더니, height넣어야되는데 width:100px; 넣어서 인듯*/
+
+.nav-item .nav-link:hover {height:45px; background-color:#A76417;}
+
+.contents {min-height:500px;}
+
+/*  .subject-text {
+	width : 300px; 
+} */
+
+.contents .reservation-box {width:450px;}
+ 
+.reserve {height:250px;}
+.reserve .real-time-reserved {background-color:#B1520F;}
+.reserve .confirm {background-color: #CF6317;}
+.reserve .inquiry {background-color:#B1520F;}
+.reserve-confirm {color:#fff; font-size: 25px; }
+
+footer {height:80px; margin-top:30px;}
+
+.input-form {width:230px; height:30px; margin-left:10px;}
+ 
+footer {height:80px; margin-top:30px;}
+
+/* .input-label {
+    width:130px;
+    text-align: right;
+    margin-right:10px;
+} */
+
+/* .menu-font {
+    color:white;
+    font-size:17px;
+    font-weight: bold;
+}
+
+.menu-font:hover {
+    color:white;
+    border: 2px solid white;
+} */
+
+

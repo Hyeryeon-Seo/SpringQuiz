@@ -18,7 +18,14 @@ public interface FavoriteMapper {
 			@Param("name") String name,
 			@Param("url") String url);
 
-	// 주소 중복 체크 - 0: 거짓(중복x) , 그외: 참
+	// 주소 중복 체크1 - 0: 거짓(중복x) , 그외: 참
 	public boolean existFavoriteByUrl(String url);
 	
+	// 주소 중복 체크2 (select방식)
+	public Favorite selectFavoriteByUrl(String url); 
+	
+	// delete id로
+	public int deleteFavoriteById(int id);
+	
+
 }
